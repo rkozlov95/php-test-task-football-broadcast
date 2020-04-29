@@ -126,6 +126,13 @@
                                     <img src="https://www.soccer.ru/sites/all/themes/newtheme/images/events-icons/goal.png">
                                 {% endfor %}
                             {% endif %}
+                            {% if player.yellowCardsCount == 1 %}
+                                <img src="https://www.soccer.ru/sites/all/themes/newtheme/images/events-icons/card.png">
+                            {% endif %}
+                            {% if player.yellowCardsCount == 2 %}
+                                <img src="https://www.soccer.ru/sites/all/themes/newtheme/images/events-icons/card.png">
+                                <img src="https://www.soccer.ru/sites/all/themes/newtheme/images/events-icons/yellow_red.png">
+                            {% endif %}
                         </td>
                         <td>
                             {{ player.playTime }}’
