@@ -7,6 +7,7 @@ class Team
     private string $name;
     private string $country;
     private string $logo;
+    private array $totalTimePositions;
     /**
      * @var Player[]
      */
@@ -21,6 +22,7 @@ class Team
         $this->name = $name;
         $this->country = $country;
         $this->logo = $logo;
+        $this->totalTimePositions = [];
         $this->players = $players;
         $this->coach = $coach;
         $this->goals = 0;
@@ -39,6 +41,23 @@ class Team
     public function getLogo(): string
     {
         return $this->logo;
+    }
+
+    public function getTotalTimePositions(): array
+    {
+        $players = $this->getPlayers();
+        $result = [];
+        foreach ($players as $player) {
+            $position = $player->getPosition();
+            $playTime = $player->getPlayTime();
+            if (isset($result[$position])) {
+                $result[$position] += $playTime;
+            } else {
+                $result[$position] = $playTime;
+            }
+        }
+        $this->totalTimePositions = $result;
+        return $this->totalTimePositions;
     }
 
     /**
@@ -87,7 +106,6 @@ class Team
     {
         return $this->goals;
     }
-
 
     private function assertCorrectPlayers(array $players)
     {

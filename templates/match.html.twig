@@ -87,6 +87,7 @@
             {% import _self as render %}
             {{ render.renderTeamInfo(match.homeTeam) }}
             {{ render.renderTeamInfo(match.awayTeam) }}
+            {{ render.renderTotalTimePositionsInfo(match) }}
         </div>
     </div>
 </div>
@@ -143,4 +144,47 @@
             </table>
         </div>
     </div>
+{% endmacro %}
+
+{% macro renderTotalTimePositionsInfo(match) %}
+<div class="card mb-3">
+    <div class="card-header text-center">
+        <div>
+            Общее время на поле для каждой позиции
+        </div>
+    </div>
+    <div class="card-body">
+        <table class="table table">
+            <thead>
+            <tr>
+               <th>Команда</th>
+               <th>Позиция</th>
+               <th></th>
+            </tr>
+            </thead>
+            <tbody>
+               {% for position, time in match.homeTeam.totalTimePositions %}
+               <tr>
+                   <td>
+                      {{ match.homeTeam.name }} -
+                      {{ match.homeTeam.country }}
+                   </td>
+                   <td>{{ position }}</td>
+                   <td>{{ time }}’</td>
+               </tr>
+               {% endfor %}
+               {% for position, time in match.awayTeam.totalTimePositions %}
+               <tr>
+                   <td>
+                      {{ match.awayTeam.name }} -
+                      {{ match.awayTeam.country }}
+                   </td>
+                   <td>{{ position }}</td>
+                   <td>{{ time }}’</td>
+               </tr>
+               {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 {% endmacro %}
